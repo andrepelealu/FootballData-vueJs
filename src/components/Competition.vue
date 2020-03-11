@@ -64,7 +64,7 @@ export default {
           'X-Auth-Token': '5a45b64133774a5faac9aa4286366db0'
         }
       }
-        axios.get('http://api.football-data.org/v2/competitions?areas='+this.id,reqHeaders).then(res => {
+        axios.get('https://api.football-data.org/v2/competitions?areas='+this.id,reqHeaders).then(res => {
         this.datas = res.data.competitions
         this.loading = false
       }).catch ((err) => {

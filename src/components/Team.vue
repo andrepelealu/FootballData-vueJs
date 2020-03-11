@@ -10,12 +10,13 @@
   <div>
 
   <div v-if="!loading" class="container">
-      <div class="input-group mb-3">
+ 
+      <h3 class="text-center">Team in : {{liganame}}</h3>
+           <div class="input-group mb-3">
         <input v-model="search" type="text" class="form-control" placeholder="Type to search ..." aria-label="Username"/>
         
       </div>
       <p>Search for: <b>{{search}}</b></p>
-      <h3 class="text-center">Team in : {{liganame}}</h3>
      <table class="table">
         <thead>
           <tr>
@@ -69,7 +70,7 @@ export default {
           'X-Auth-Token': '5a45b64133774a5faac9aa4286366db0'
         }
       }
-        axios.get('http://api.football-data.org/v2/competitions/'+this.id+'/teams',reqHeaders).then(res => {
+        axios.get('https://api.football-data.org/v2/competitions/'+this.id+'/teams',reqHeaders).then(res => {
         this.datas = res.data.teams
         this.loading = false
 

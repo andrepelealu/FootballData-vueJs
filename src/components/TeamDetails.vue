@@ -79,10 +79,7 @@ export default {
           'X-Auth-Token': '5a45b64133774a5faac9aa4286366db0'
         }
       }
-        axios.get('http://api.football-data.org/v2/teams/'+this.id,reqHeaders).then(res => {
-        console.log('jumlah array',res.data.squad.length)
-        console.log('jumlah array',res.data.squad)
-
+        axios.get('https://api.football-data.org/v2/teams/'+this.id,reqHeaders).then(res => {
         this.datas = res.data
         this.squads = res.data.squad
         this.loading = false
