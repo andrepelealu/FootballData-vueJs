@@ -1,15 +1,39 @@
-
+<style >
+  .center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+</style>
 <template>
-  <div>
-      <h1>{{country}}</h1>
-    <input type='text' v-on:keyup.13="focusarea(id)">
-    <ul >
-      <li v-for="data in datas" :key="data.id">
-        {{data.name}}
-        <router-link :to="'/team/'+country+'/'+data.id+'/'+data.name"><button>Details</button></router-link>
-      </li>
-    </ul>
+<div>
+  <div v-if="!loading">
+      <h3 class="text-center">Competition in : {{country}}</h3>
+     <table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Competition Name</th>
+            <th>Details</th>
+          </tr>
+      </thead>
+        <tbody>
+          <tr v-for="data in datas" :key="data.id">
+            <th></th>
+            <td>{{data.name}}</td>
+            <th>
+              <router-link :to="'/team/'+country+'/'+data.id+'/'+data.name">  <b-button variant="primary">Details</b-button></router-link>
+            </th>
+          </tr>
+        </tbody>
+      </table>
   </div>
+    <div v-else class="container">
+      <img class="center" src="https://media.tenor.com/images/d5015577b1133a47299b149b6fab1aaa/tenor.gif" alt="loading">
+    </div>
+  </div>
+  
 </template>
 
 <script>
@@ -22,7 +46,10 @@ export default {
     },
   data(){
     return{
-        datas: []
+        datas: [],
+        loading:false,
+        search:''
+
     }
   },
   mounted() {
@@ -31,22 +58,27 @@ export default {
   },
   methods: {
       showliga(id){
+        this.loading=true
         const reqHeaders = {
         'headers':{
           'X-Auth-Token': '5a45b64133774a5faac9aa4286366db0'
         }
       }
         axios.get('http://api.football-data.org/v2/competitions?areas='+this.id,reqHeaders).then(res => {
-        console.log(res.data.competitions)
-        console.log('sssssddd',this.id)
         this.datas = res.data.competitions
-
+        this.loading = false
       }).catch ((err) => {
         console.log(err);
         
       })
-        console.log(id)
     },
+    computed:{
+    filteredDatas:function(){
+      return this.datas.filter((data)=>{
+        return data.name.toLowerCase().match(this.search.toLowerCase())
+      })
+    }
+  }
   }
 }
 </script>
