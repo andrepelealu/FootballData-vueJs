@@ -1,11 +1,12 @@
 
 <template>
   <div>
+    <h1>Show all country</h1>
     <input type='text' v-on:keyup.13="test">
     <ul >
-      <li v-for="user in datas" :key="user.id">
-        {{user.id}}
-        <button @click="focusarea(user.id)">Details</button>
+      <li v-for="data in datas" :key="data.id">
+        {{data.name}}
+        <router-link :to="'/country/'+data.id+'/'+data.name"><button>Details</button></router-link>
       </li>
     </ul>
   </div>
